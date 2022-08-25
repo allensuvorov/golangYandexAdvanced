@@ -7,6 +7,6 @@ import (
 
 func main() {
 	now := time.Now()
-	// truncTime := допишите код
+	truncTime := now.Truncate(time.Hour * 24)
 	fmt.Println(truncTime)
 }
