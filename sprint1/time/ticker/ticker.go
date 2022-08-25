@@ -11,9 +11,9 @@ import (
 func main() {
 	start := time.Now()
 	ticker := time.NewTicker(2 * time.Second) // created a ticker
+	defer ticker.Stop()
 	for i := 0; i < 10; i++ {
 		t := <-ticker.C // wait for ticker
-		fmt.Println(t.Sub(start).Seconds())
+		fmt.Println(int(t.Sub(start).Seconds()))
 	}
-	ticker.Stop()
 }
