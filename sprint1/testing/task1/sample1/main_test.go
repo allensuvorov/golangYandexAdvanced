@@ -1,53 +1,44 @@
 // для функции Abs проверьте тесты на -3, 3, -2.000001, -0.000000003 и другие значения.
-package math
+package main
 
 import "testing"
 
-// Sum возвращает сумму элементов.
-func Sum(values ...int) int {
-	var sum int
-	for _, v := range values {
-		sum += v
-	}
-	return sum
-}
-
-func TestSum(t *testing.T) {
+func TestAbs(t *testing.T) {
 	tests := []struct { // добавился слайс тестов
-		name   string
-		values []int
-		want   int
+		name  string
+		value float64
+		want  float64
 	}{
 		{
-			name:   "simple test #1", // описывается каждый тест
-			values: []int{1, 2},      // значения, которые будет принимать функция
-			want:   3,                // ожидаемое значение
+			name:  "negative int", // описывается каждый тест
+			value: -3,             // значения, которые будет принимать функция
+			want:  3,              // ожидаемое значение
 		},
 		{
-			name:   "one",
-			values: []int{1},
-			want:   1,
+			name:  "positive int",
+			value: 3,
+			want:  3,
 		},
 		{
-			name:   "with negative values",
-			values: []int{-1, -2, 3},
-			want:   0,
+			name:  "negative float",
+			value: -2.000001,
+			want:  2.000001,
 		},
 		{
-			name:   "with negative zero",
-			values: []int{-0, 3},
-			want:   3,
+			name:  "negative float with leading zero",
+			value: -0.000000003,
+			want:  0.000000003,
 		},
 		{
-			name:   "a lot of values",
-			values: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18},
-			want:   189,
+			name:  "negative big int - 100billion",
+			value: -100_000_000_000,
+			want:  100_000_000_000,
 		},
 	}
 	for _, tt := range tests { // цикл по всем тестам
 		t.Run(tt.name, func(t *testing.T) {
-			if sum := Sum(tt.values...); sum != tt.want {
-				t.Errorf("Add() = %v, want %v", sum, tt.want)
+			if abs := Abs(tt.value); abs != tt.want {
+				t.Errorf("Add() = %v, want %v", abs, tt.want)
 			}
 		})
 	}
