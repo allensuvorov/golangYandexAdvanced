@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestFullName(t *testing.T) {
 	tests := []struct { // добавился слайс тестов
@@ -36,9 +40,8 @@ func TestFullName(t *testing.T) {
 	}
 	for _, tt := range tests { // цикл по всем тестам
 		t.Run(tt.name, func(t *testing.T) {
-			if fn := User.FullName(tt.value); fn != tt.want {
-				t.Errorf("FullName() = %v, want %v", fn, tt.want)
-			}
+			v := User.FullName(tt.value)
+			assert.Equal(t, tt.want, v, "values should be equal")
 		})
 	}
 }
