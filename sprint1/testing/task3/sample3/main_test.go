@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestFamily_AddNew(t *testing.T) {
 	type newPerson struct {
@@ -58,9 +62,8 @@ func TestFamily_AddNew(t *testing.T) {
 			f := &Family{
 				Members: tt.existedMembers,
 			}
-			if err := f.AddNew(tt.newPerson.r, tt.newPerson.p); (err != nil) != tt.wantErr {
-				t.Errorf("AddNew() error = %v, wantErr %v", err, tt.wantErr)
-			}
+			err := f.AddNew(tt.newPerson.r, tt.newPerson.p)
+			assert.Equal(t, tt.wantErr, err != nil)
 		})
 	}
 }
