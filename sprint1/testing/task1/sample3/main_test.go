@@ -4,8 +4,8 @@ import "testing"
 
 func TestFamily_AddNew(t *testing.T) {
 	type newPerson struct {
-		relationship Relationship
-		person       Person
+		r Relationship
+		p Person
 	}
 	tests := []struct { // добавился слайс тестов
 		name           string
@@ -58,7 +58,7 @@ func TestFamily_AddNew(t *testing.T) {
 			f := &Family{
 				Members: tt.existedMembers,
 			}
-			if err := f.AddNew(tt.newPerson.r, tt.NewPerson.p); (err != nil) != tt.wantErr {
+			if err := f.AddNew(tt.newPerson.r, tt.newPerson.p); (err != nil) != tt.wantErr {
 				t.Errorf("AddNew() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
