@@ -1,7 +1,11 @@
 // для функции Abs проверьте тесты на -3, 3, -2.000001, -0.000000003 и другие значения.
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestAbs(t *testing.T) {
 	tests := []struct { // добавился слайс тестов
@@ -37,9 +41,9 @@ func TestAbs(t *testing.T) {
 	}
 	for _, tt := range tests { // цикл по всем тестам
 		t.Run(tt.name, func(t *testing.T) {
-			if abs := Abs(tt.value); abs != tt.want {
-				t.Errorf("Add() = %v, want %v", abs, tt.want)
-			}
+			v := Abs(tt.value)
+			assert.Equal(t, tt.want, v, "values must be equal") // меняем на функцию Equal из пакета assert
+
 		})
 	}
 }
