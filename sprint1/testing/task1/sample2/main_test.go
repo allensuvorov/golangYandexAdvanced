@@ -37,7 +37,7 @@ func TestFullName(t *testing.T) {
 	for _, tt := range tests { // цикл по всем тестам
 		t.Run(tt.name, func(t *testing.T) {
 			if fn := User.FullName(tt.value); fn != tt.want {
-				t.Errorf("Add() = %v, want %v", fn, tt.want)
+				t.Errorf("FullName() = %v, want %v", fn, tt.want)
 			}
 		})
 	}
