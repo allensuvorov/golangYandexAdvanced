@@ -63,15 +63,4 @@ func TestFamily_AddNew(t *testing.T) {
 			}
 		})
 	}
-
-	for _, tt := range tests { // цикл по всем тестам
-		t.Run(tt.name, func(t *testing.T) {
-			f := &Family{
-				Members: tt.existedMembers,
-			}
-			if err := f.AddNew(tt.newPerson.r, tt.newPerson.p); (err != nil) != tt.wantErr {
-				t.Errorf("AddNew() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
 }
