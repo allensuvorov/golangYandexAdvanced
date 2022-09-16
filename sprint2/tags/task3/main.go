@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 // User используется для тестирования.
@@ -33,7 +34,20 @@ func Validate(obj interface{}) bool {
 		if v, ok := vobj.Field(i).Interface().(int); ok {
 			// подсказка: тег limit надо искать в поле objType.Field(i)
 
+			tagValues := objType.Field(i).Tag.Get("limit")
+			if strings.Contains(tagValues, ",") {
+				tagValueList := strings.Split(tagValues, ",")
+				if v < Str2Int(tagValueList[0]) || v > Str2Int(tagValueList[1]) {
+					return false
+				}
+			} else {
+				if v < Str2Int(tagValues) {
+					return false
+				}
+			}
+			// log.Println(v, tagValues)
 			// допишите код
+
 		}
 	}
 	return true
