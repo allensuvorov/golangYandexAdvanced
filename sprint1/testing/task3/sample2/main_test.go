@@ -45,3 +45,28 @@ func TestFullName(t *testing.T) {
 		})
 	}
 }
+
+func TestUser_FullName(t *testing.T) {
+	type fields struct {
+		FirstName string
+		LastName  string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   string
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			u := User{
+				FirstName: tt.fields.FirstName,
+				LastName:  tt.fields.LastName,
+			}
+			if got := u.FullName(); got != tt.want {
+				t.Errorf("User.FullName() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
