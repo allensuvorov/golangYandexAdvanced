@@ -24,7 +24,7 @@ func main() {
 			Company: "Яндекс",
 		},
 	}
-	out, err := json.Marshal(foo)
+	out, err := json.MarshalIndent(foo, "", "    ")
 	if err != nil {
 		log.Fatal(err)
 	}
