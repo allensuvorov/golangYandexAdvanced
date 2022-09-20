@@ -12,7 +12,7 @@ type Person struct {
 	ID     int `xml:"id,attr"`
 	Name   string
 	Email  string
-	Phones []string // ...
+	Phones []string `xml:"Phones>Phone"`
 }
 
 type List struct {
