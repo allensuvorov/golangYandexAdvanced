@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 )
@@ -10,6 +11,7 @@ type Slice []byte
 // MarshalJSON реализует интерфейс json.Marshaler.
 func (s Slice) MarshalJSON() ([]byte, error) {
 	// допишите код
+	return json.Marshal(hex.EncodeToString(s))
 }
 
 // UnmarshalJSON реализует интерфейс json.Unmarshaler.
@@ -19,6 +21,12 @@ func (s *Slice) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	// допишите код
+
+	v, err := hex.DecodeString(tmp)
+
+	*s = v
+
+	return err
 }
 
 type MySlice struct {
@@ -27,6 +35,7 @@ type MySlice struct {
 }
 
 func main() {
+
 	ret, err := json.Marshal(MySlice{ID: 7, Slice: []byte{1, 2, 3, 10, 11, 255}})
 	if err != nil {
 		panic(err)
