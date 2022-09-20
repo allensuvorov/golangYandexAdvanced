@@ -1,3 +1,5 @@
+// 1 Carla Mitchel  [123-45-67 890-12-34]
+// 2 Michael Smith msmith@example.com []
 package main
 
 import (
@@ -7,14 +9,14 @@ import (
 )
 
 type Person struct {
-	ID     int // ...
+	ID     int `xml:"id,attr"`
 	Name   string
 	Email  string
 	Phones []string // ...
 }
 
 type List struct {
-	Persons []Person // ...
+	Persons []Person `xml:"Person"`
 }
 
 func main() {
