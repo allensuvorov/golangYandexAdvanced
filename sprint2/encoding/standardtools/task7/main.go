@@ -1,10 +1,10 @@
 package main
 
-// import (
-//     "bytes"
-//     "encoding/gob"
-//     "fmt"
-// )
+import (
+	"bytes"
+	"encoding/gob"
+	"fmt"
+)
 
 func main() {
 	// data содержит данные в формате gob
@@ -13,7 +13,14 @@ func main() {
 		111, 44, 5, 119, 111, 114, 108, 100}
 	// напишите код, который декодирует data в массив строк
 	// 1) создайте буфер `bytes.NewBuffer(data)` для передачи в декодер
+	buf := bytes.NewBuffer(data)
 	// 2) создайте декодер gob.NewDecoder(buf)
+	dec := gob.NewDecoder(buf)
 	// 3) определите `make([]string, 0)` для получения декодированного слайса
+	str := make([]string, 0)
 	// 4) декодируйте данные функцией `dec.Decode`
+	if err := dec.Decode(&str); err != nil {
+		panic(err)
+	}
+	fmt.Println(str)
 }
