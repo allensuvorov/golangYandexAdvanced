@@ -1,3 +1,5 @@
+//Реализуйте производитель и потребитель с помощью json.Encoder и json.Decoder:
+
 package main
 
 import (
@@ -20,6 +22,13 @@ type producer struct {
 
 func NewProducer(filename string) (*producer, error) {
 	// допишите код здесь
+	// открываем файл для записи в конец
+	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
+	if err != nil {
+		return nil, err
+	}
+
+	return &producer{file: file}, nil
 }
 
 func (p *producer) WriteEvent(event *Event) error {
