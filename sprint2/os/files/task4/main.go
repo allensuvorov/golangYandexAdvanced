@@ -28,11 +28,32 @@ func NewProducer(filename string) (*producer, error) {
 		return nil, err
 	}
 
-	return &producer{file: file}, nil
+	return &producer{
+		file: file,
+		// создаём новый Encoder
+		encoder: json.NewEncoder(file),
+	}, nil
 }
 
 func (p *producer) WriteEvent(event *Event) error {
 	// допишите код здесь
+	data, err := json.Marshal(&event)
+	if err != nil {
+		return err
+	}
+
+	// записываем событие в буфер
+	if _, err := p.writer.Write(data); err != nil {
+		return err
+	}
+
+	// добавляем перенос строки
+	if err := p.writer.WriteByte('\n'); err != nil {
+		return err
+	}
+
+	// записываем буфер в файл
+	return p.writer.Flush()
 }
 
 func (p *producer) Close() error {
