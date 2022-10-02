@@ -50,6 +50,14 @@ type consumer struct {
 
 func NewConsumer(filename string) (*consumer, error) {
 	// допишите код здесь
+	file, err := os.OpenFile(fileName, os.O_RDONLY|os.O_CREATE, 0777)
+	if err != nil {
+		return nil, err
+	}
+	return &consumer{
+		file:    file,
+		decoder: json.NewDecoder(file),
+	}, nil
 }
 
 func (c *consumer) ReadEvent() (*Event, error) {
