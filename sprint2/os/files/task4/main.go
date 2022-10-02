@@ -20,10 +20,10 @@ type producer struct {
 	encoder *json.Encoder
 }
 
-func NewProducer(filename string) (*producer, error) {
+func NewProducer(fileName string) (*producer, error) {
 	// допишите код здесь
 	// открываем файл для записи в конец
-	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
+	file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0777)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ type consumer struct {
 	decoder *json.Decoder
 }
 
-func NewConsumer(filename string) (*consumer, error) {
+func NewConsumer(fileName string) (*consumer, error) {
 	// допишите код здесь
 	file, err := os.OpenFile(fileName, os.O_RDONLY|os.O_CREATE, 0777)
 	if err != nil {
@@ -62,6 +62,11 @@ func NewConsumer(filename string) (*consumer, error) {
 
 func (c *consumer) ReadEvent() (*Event, error) {
 	// допишите код здесь
+	event := &Event{}
+	if err := c.decoder.Decode(&event); err != nil {
+		return nil, err
+	}
+	return event, nil
 }
 
 func (c *consumer) Close() error {
