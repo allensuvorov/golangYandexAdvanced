@@ -102,8 +102,8 @@ var events = []*Event{
 }
 
 func main() {
-	filename := "events.log"
-	defer os.Remove(filename)
+	filename := "/Users/allen/go/src/yandex/golangYandexAdvanced/sprint2/os/files/task4/log/events.log"
+	// defer os.Remove(filename)
 
 	producer, err := NewProducer(filename)
 	if err != nil {
