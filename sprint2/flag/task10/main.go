@@ -13,6 +13,10 @@ type NetAddress struct {
 	Port int
 }
 
+func (na NetAddress) String() string {
+	return fmt.Sprint(na.Host + ":" + string(na.Port))
+}
+
 // допишите код реализации методов интерфейса
 
 func main() {
