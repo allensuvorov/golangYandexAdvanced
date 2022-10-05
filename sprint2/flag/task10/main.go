@@ -6,6 +6,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 type NetAddress struct {
@@ -13,11 +15,16 @@ type NetAddress struct {
 	Port int
 }
 
+// допишите код реализации методов интерфейса
 func (na NetAddress) String() string {
-	return fmt.Sprint(na.Host + ":" + string(na.Port))
+	return fmt.Sprint(na.Host + ":" + fmt.Sprint(na.Port))
 }
 
-// допишите код реализации методов интерфейса
+func (na *NetAddress) Set(flagValue string) error {
+	na.Host = strings.Split(flagValue, ":")[0]
+	na.Port, _ = strconv.Atoi(strings.Split(flagValue, ":")[1])
+	return nil
+}
 
 func main() {
 	addr := new(NetAddress)
