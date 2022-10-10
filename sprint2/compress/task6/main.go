@@ -9,35 +9,27 @@ import (
 
 // LengthHandle возвращает размер распакованных данных.
 func LengthHandle(w http.ResponseWriter, r *http.Request) {
-	// создаём *gzip.Reader, который будет читать тело запроса
-	// и распаковывать его
-	if _, ok := r.Header["Content-Encoding"]; ok {
+	// переменная reader будет равна r.Body или *gzip.Reader
+	var reader io.Reader
 
+	if r.Header.Get(`Content-Encoding`) == `gzip` {
 		gz, err := gzip.NewReader(r.Body)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		// не забывайте потом закрыть *gzip.Reader
+		reader = gz
 		defer gz.Close()
-
-		// при чтении вернётся распакованный слайс байт
-		body, err := io.ReadAll(gz)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		fmt.Fprintf(w, "Length: %d", len(body))
-
 	} else {
-		body, err := io.ReadAll(r.Body)
-		// обрабатываем ошибку
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		fmt.Fprintf(w, "Length: %d", len(body))
+		reader = r.Body
 	}
+
+	body, err := io.ReadAll(reader)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	fmt.Fprintf(w, "Length: %d", len(body))
 
 }
 
