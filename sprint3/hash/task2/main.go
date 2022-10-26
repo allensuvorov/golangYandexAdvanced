@@ -23,7 +23,14 @@ func main() {
 	}
 
 	// 2) вычисление hash1 с использованием md5.New
+	h := md5.New()
+	h.Write(data)
+	hash1 = h.Sum(nil)
+	fmt.Printf("%x \n", hash1)
+
 	// 3) вычисление hash2 функцией md5.Sum
+	hash2 = md5.Sum(data)
+	fmt.Printf("%x \n", hash2)
 
 	// ...
 
