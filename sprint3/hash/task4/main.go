@@ -1,5 +1,7 @@
 package main
 
+import "crypto/sha256"
+
 const (
 	password = "x35k9f"
 	msg      = `0ba7cd8c624345451df4710b81d1a349ce401e61bc7eb704ca` +
@@ -12,7 +14,9 @@ const (
 func main() {
 	// допишите код
 	// 1) получите ключ из password, используя sha256.Sum256
+	key := sha256.Sum256([]byte(password))
 	// 2) создайте aesblock и aesgcm
+
 	// 3) получите вектор инициализации aesgcm.NonceSize() байт с конца ключа
 	// 4) декодируйте сообщение msg в двоичный формат
 	// 5) расшифруйте и выведите данные
