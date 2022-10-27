@@ -2,6 +2,9 @@ package main
 
 import (
 	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 )
 
@@ -18,9 +21,19 @@ func main() {
 
 	// допишите код
 	// 1) декодируйте msg в data
+	data, err = hex.DecodeString(msg)
+	if err != nil {
+		panic(err)
+	}
+
 	// 2) получите идентификатор из первых четырёх байт,
 	//    используйте функцию binary.BigEndian.Uint32
+	id = binary.BigEndian.Uint32(data[:4])
+
 	// 3) вычислите HMAC-подпись sign для этих четырёх байт
+	h := hmac.New(sha256.New, secretkey)
+	h.Write(data[:4])
+	sign = h.Sum(nil)
 
 	// ...
 
