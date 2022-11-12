@@ -15,12 +15,12 @@ type LabelError struct {
 
 // добавьте методы Error() и NewLabelError(string, error)
 func (le *LabelError) Error() string {
-	return fmt.Sprintf("[%v] %v", strings.ToUpper(le.Label), le.Err)
+	return fmt.Sprintf("[%s] %v", le.Label, le.Err)
 }
 
 func NewLabelError(s string, err error) error {
 	return &LabelError{
-		Label: s,
+		Label: strings.ToUpper(s),
 		Err:   err,
 	}
 }
