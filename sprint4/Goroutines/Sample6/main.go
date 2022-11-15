@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 type Cache struct {
@@ -84,4 +85,5 @@ func main() {
 			}(u)
 		}
 	}
+	time.Sleep(1 * time.Second)
 }
