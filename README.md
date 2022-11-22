@@ -1,2 +1,2 @@
 # golangYandexAdvanced
-projects and snippets from the course
+exercises and snippets from the course
